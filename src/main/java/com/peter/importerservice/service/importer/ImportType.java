@@ -6,7 +6,7 @@ import com.peter.importerservice.service.importer.configuration.ImportConfigurat
 import com.peter.importerservice.service.importer.configuration.LineElement;
 import com.peter.importerservice.service.importer.configuration.MultiLineConfiguration;
 import com.peter.importerservice.service.importer.configuration.MultiLineElement;
-import com.peter.importerservice.service.importer.dto.FactoryImportBO;
+import com.peter.importerservice.service.importer.dto.bo.FactoryImportBO;
 import com.peter.importerservice.service.importer.configuration.factory.ImportFactoryConfiguration;
 import com.peter.importerservice.service.importer.dto.FieldConfiguration;
 import lombok.AllArgsConstructor;

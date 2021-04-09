@@ -1,4 +1,4 @@
-package com.peter.importerservice.service.importer.dto;
+package com.peter.importerservice.service.importer.dto.bo;
 
 import com.peter.importerservice.service.importer.validation.AddressImport;
 import lombok.Getter;

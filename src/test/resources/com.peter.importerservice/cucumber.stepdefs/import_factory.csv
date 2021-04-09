@@ -1,0 +1,5 @@
+Factory Name;Custom ID;Factory name in Local language;Country;Administrative area;Postal code;City;Address details;Contact first name;Contact Last name;Contact name in local language;Position;Work Phone;Mobile phone (optional);Email
+JIANGSU WUXI;WUXI;????;DENMARK;NORTH JUTLAND;898000;WUXI;ROAD;WU;XI;??;manager;123456789;123456;jinangsuwuxi@inboxkitten.com
+SHANGHAI PUDONG;WUXI;????;DENMARK;AALBORG;898000;WUXI;ROAD;WU;XI;??;manager;123456789;;jinangsuwuxi@inboxkitten.com
+JIANGSU WUXI;WUXI;????;DENMARK;NORTH JUTLAND;898000;WUXI;ROAD;WU;XI;??;manager;123456789;;jinangsuwuxi@inboxkitten.com
+;WUXI;;WRONG;NORTH JUTLAND;898000;;;;;??;manager;;123456;

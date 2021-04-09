@@ -1,0 +1,65 @@
+{
+  "fields": [
+    {
+      "fieldName": "FACTORY_NAME",
+      "position": 1
+    },
+    {
+      "fieldName": "CUSTOM_ID",
+      "position": 2
+    },
+    {
+      "fieldName": "FACTORY_LOCAL_NAME",
+      "position": 3
+    },
+    {
+      "fieldName": "COUNTRY",
+      "position": 4
+    },
+    {
+      "fieldName": "ADMINISTRATIVE_AREA",
+      "position": 5
+    },
+    {
+      "fieldName": "CITY",
+      "position": 6
+    },
+    {
+      "fieldName": "POSTAL_CODE",
+      "position": 7
+    },
+    {
+      "fieldName": "ADDRESS_DETAILS",
+      "position": 8
+    },
+    {
+      "fieldName": "CONTACT_FIRST_NAME",
+      "position": 9
+    },
+    {
+      "fieldName": "CONTACT_LAST_NAME",
+      "position": 10
+    },
+    {
+      "fieldName": "CONTACT_LOCAL_NAME",
+      "position": 11
+    },
+    {
+      "fieldName": "POSITION",
+      "position": 12
+    },
+    {
+      "fieldName": "WORK_PHONE",
+      "position": 13
+    },
+    {
+      "fieldName": "MOBILE_PHONE",
+      "position": 14
+    },
+    {
+      "fieldName": "EMAIL",
+      "position": 15
+    }
+  ],
+  "dryRun": true
+}

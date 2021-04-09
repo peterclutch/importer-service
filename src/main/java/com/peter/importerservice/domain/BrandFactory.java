@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "brand_entity")
+@Table(name = "brand_factory")
 @Getter
 @Setter
 @ToString

@@ -3,7 +3,7 @@ package com.peter.importerservice.service.mapper;
 import com.peter.importerservice.domain.BrandFactory;
 import com.peter.importerservice.domain.Factory;
 import com.peter.importerservice.service.bo.FactoryBO;
-import com.peter.importerservice.service.importer.dto.FactoryImportBO;
+import com.peter.importerservice.service.importer.dto.bo.FactoryImportBO;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

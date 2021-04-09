@@ -1,7 +1,7 @@
 package com.peter.importerservice.service.importer.configuration.factory;
 
 import com.peter.importerservice.service.importer.configuration.ImportConfiguration;
-import com.peter.importerservice.service.importer.dto.FactoryImportBO;
+import com.peter.importerservice.service.importer.dto.bo.FactoryImportBO;
 import com.peter.importerservice.service.importer.dto.FieldConfiguration;
 
 import javax.validation.ConstraintViolation;

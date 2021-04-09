@@ -2,7 +2,7 @@ package com.peter.importerservice.service.importer.validation;
 
 import com.peter.importerservice.repository.AdministrativeAreaRepository;
 import com.peter.importerservice.repository.CountryRepository;
-import com.peter.importerservice.service.importer.dto.AddressImportBO;
+import com.peter.importerservice.service.importer.dto.bo.AddressImportBO;
 import com.peter.importerservice.util.StringUtils;
 import com.peter.importerservice.validator.ValidationErrorCode;
 import lombok.AllArgsConstructor;
