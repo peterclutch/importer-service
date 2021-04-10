@@ -22,24 +22,16 @@ import java.util.stream.Stream;
 
 @AllArgsConstructor
 public enum ImportType {
-//    PRODUCT(
-//            new ImportProductConfiguration(),
-//            (object, service, dryRun) -> service.saveProduct((ProductImporterBO) object, dryRun)),
-//    USER(
-//            new ImportUserConfiguration(),
-//            (object, service, dryRun) -> service.saveUser((UserImportBO) object, dryRun)),
-//    PURCHASE_ORDER(
-//            new ImportPurchaseOrderConfiguration(),
-//            (object, service, dryRun) ->
-//                    service.savePurchaseOrder((PurchaseOrderImportBO) object, dryRun)),
-//    DEFECT_CHECKLIST(
-//            new ImportDefectsChecklistConfiguration(),
-//            (object, service, dryRun) ->
-//                    service.saveDefectsChecklist((DefectsChecklistImportBO) object, dryRun)),
-//    TEST_CHECKLIST(
-//            new ImportTestsChecklistConfiguration(),
-//            (object, service, dryRun) ->
-//                    service.saveTestsChecklist((TestsChecklistImportBO) object, dryRun)),
+    PRODUCT(
+            null, null),
+    USER(
+            null, null),
+    PURCHASE_ORDER(
+            null, null),
+    DEFECT_CHECKLIST(
+            null, null),
+    TEST_CHECKLIST(
+            null, null),
     FACTORY(
             new ImportFactoryConfiguration(),
             (object, service, dryRun) -> service.saveFactory((FactoryImportBO) object, dryRun));

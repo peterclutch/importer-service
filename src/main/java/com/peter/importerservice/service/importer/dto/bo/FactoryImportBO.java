@@ -50,4 +50,9 @@ public class FactoryImportBO implements
   public Long getId() {
     return getEntityId();
   }
+
+  public FactoryImportBO name(String name) {
+    this.name = name;
+    return this;
+  }
 }
