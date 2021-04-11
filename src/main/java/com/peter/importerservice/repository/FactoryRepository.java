@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FactoryRepository extends JpaRepository<Factory, Long> {
 
+    @Query("select f from Factory f join f.brandFactories bf where lower(f.name) = lower(:name) and bf.id.brand.id = :brandId")
+    Factory findOneByNameAndBrandId(@Param("name") String name, @Param("brandId") Long brandId);
+
     @Query("select count(f) > 0 from Factory f join f.brandFactories bf where lower(f.name) = lower(:name) and bf.id.brand.id = :brandId")
     boolean existsByNameAndBrandId(@Param("name") String name, @Param("brandId") Long brandId);
 

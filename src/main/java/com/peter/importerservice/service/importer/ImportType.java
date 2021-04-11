@@ -6,9 +6,11 @@ import com.peter.importerservice.service.importer.configuration.ImportConfigurat
 import com.peter.importerservice.service.importer.configuration.LineElement;
 import com.peter.importerservice.service.importer.configuration.MultiLineConfiguration;
 import com.peter.importerservice.service.importer.configuration.MultiLineElement;
+import com.peter.importerservice.service.importer.configuration.purchase_order.ImportPurchaseOrderConfiguration;
 import com.peter.importerservice.service.importer.dto.bo.FactoryImportBO;
 import com.peter.importerservice.service.importer.configuration.factory.ImportFactoryConfiguration;
 import com.peter.importerservice.service.importer.dto.FieldConfiguration;
+import com.peter.importerservice.service.importer.dto.bo.PurchaseOrderImportBO;
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.util.TriConsumer;
 
@@ -22,16 +24,10 @@ import java.util.stream.Stream;
 
 @AllArgsConstructor
 public enum ImportType {
-    PRODUCT(
-            null, null),
-    USER(
-            null, null),
     PURCHASE_ORDER(
-            null, null),
-    DEFECT_CHECKLIST(
-            null, null),
-    TEST_CHECKLIST(
-            null, null),
+            new ImportPurchaseOrderConfiguration(),
+            (object, service, dryRun) ->
+                    service.savePurchaseOrder((PurchaseOrderImportBO) object, dryRun)),
     FACTORY(
             new ImportFactoryConfiguration(),
             (object, service, dryRun) -> service.saveFactory((FactoryImportBO) object, dryRun));

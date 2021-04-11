@@ -2,21 +2,24 @@ package com.peter.importerservice.service;
 
 import com.peter.importerservice.domain.AdministrativeArea;
 import com.peter.importerservice.exception.technical.ImportDryRunException;
+import com.peter.importerservice.service.importer.ImportType;
 import com.peter.importerservice.service.importer.configuration.Constants;
 import com.peter.importerservice.service.importer.configuration.LineElement;
 import com.peter.importerservice.service.importer.configuration.MultiLineElement;
-import com.peter.importerservice.service.importer.dto.ImportSummaryDTO;
-import com.peter.importerservice.service.importer.dto.bo.FactoryImportBO;
-import com.peter.importerservice.service.importer.ImportType;
 import com.peter.importerservice.service.importer.dto.FieldConfiguration;
 import com.peter.importerservice.service.importer.dto.ImportConfiguration;
+import com.peter.importerservice.service.importer.dto.ImportSummaryDTO;
+import com.peter.importerservice.service.importer.dto.bo.FactoryImportBO;
+import com.peter.importerservice.service.importer.dto.bo.PurchaseOrderImportBO;
 import com.peter.importerservice.service.importer.validation.groups.ImportGroup;
 import com.peter.importerservice.service.mapper.FactoryMapper;
+import com.peter.importerservice.service.mapper.PurchaseOrderMapper;
 import com.peter.importerservice.util.BooleanUtils;
 import com.peter.importerservice.util.StringUtils;
 import com.peter.importerservice.validator.ValidationErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.simpleflatmapper.csv.CsvParser;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -47,8 +50,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiConsumer;
 
-import org.simpleflatmapper.csv.CsvParser;
-
 @Slf4j
 @Service
 @AllArgsConstructor
@@ -60,8 +61,11 @@ public class ImporterService {
     private final AdministrativeAreaService administrativeAreaService;
     private final CountryService countryService;
     private final FactoryService factoryService;
+    private final ProductService productService;
+    private final PurchaseOrderService purchaseOrderService;
 
     private final FactoryMapper factoryMapper;
+    private final PurchaseOrderMapper purchaseOrderMapper;
 
     public ImportConfiguration getConfiguration(ImportType type) {
         var configuration = new ImportConfiguration();
@@ -124,7 +128,7 @@ public class ImporterService {
         try (final Reader reader = new InputStreamReader(inputStream)) {
             final AtomicLong lineNumber = new AtomicLong(1);
 
-            final var mutliLineObject = new AtomicReference<MultiLineElement>();
+            final var multiLineObject = new AtomicReference<MultiLineElement>();
             final var previousObject = new AtomicReference<LineElement>();
 
             CsvParser.separator(configuration.getSeparator()).skip(1).stream(reader)
@@ -134,25 +138,25 @@ public class ImporterService {
                                 bo.setLineNumber(lineNumber.incrementAndGet());
 
                                 if (type.isMultiLine()) {
-                                    if (mutliLineObject.get() == null) {
-                                        mutliLineObject.set(type.createMultiLineBO());
+                                    if (multiLineObject.get() == null) {
+                                        multiLineObject.set(type.createMultiLineBO());
                                     }
 
                                     if (previousObject.get() == null) {
-                                        mutliLineObject.get().addLine(bo);
+                                        multiLineObject.get().addLine(bo);
                                     } else {
                                         var sameObjectAsPreviously = Objects.equals(previousObject.get(), bo);
                                         if (sameObjectAsPreviously) { // save previous objects
-                                            mutliLineObject.get().addLine(bo);
+                                            multiLineObject.get().addLine(bo);
                                         } else {
                                             save(
-                                                    mutliLineObject.get(),
+                                                    multiLineObject.get(),
                                                     configuration,
                                                     type,
                                                     importSummary,
                                                     violationsConsumer);
-                                            mutliLineObject.set(type.createMultiLineBO());
-                                            mutliLineObject.get().addLine(bo);
+                                            multiLineObject.set(type.createMultiLineBO());
+                                            multiLineObject.get().addLine(bo);
                                         }
                                     }
                                     previousObject.set(bo);
@@ -162,7 +166,7 @@ public class ImporterService {
                             });
 
             if (type.isMultiLine()) {
-                save(mutliLineObject.get(), configuration, type, importSummary, violationsConsumer);
+                save(multiLineObject.get(), configuration, type, importSummary, violationsConsumer);
             }
         }
         return importSummary;
@@ -382,5 +386,16 @@ public class ImporterService {
 
         var bo = factoryMapper.toBO(object);
         factoryService.create(bo, dryRun);
+    }
+
+    public void savePurchaseOrder(PurchaseOrderImportBO object, Boolean dryRun) {
+        var purchaseOrder = purchaseOrderMapper.toEntity(object);
+        purchaseOrder.setFactory(factoryService.findByName(object.getLines().get(0).getFactoryName()));
+
+        for (var orderProduct : purchaseOrder.getPurchaseOrderProducts()) {
+            orderProduct.setProduct(
+                    productService.findByName(orderProduct.getProduct().getIdentifierValue()));
+        }
+        purchaseOrderService.create(purchaseOrder, dryRun);
     }
 }

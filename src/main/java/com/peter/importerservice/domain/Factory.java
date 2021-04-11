@@ -47,6 +47,11 @@ public class Factory {
     @Column(name = "local_name")
     private String localName;
 
+    public Factory id(Long id) {
+        this.id = id;
+        return this;
+    }
+
     public Factory addBrandEntity(BrandFactory brandFactory) {
         brandFactories.add(brandFactory);
         return this;

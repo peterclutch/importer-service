@@ -39,4 +39,9 @@ public class Brand {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Address address;
+
+    public Brand id(Long id) {
+        this.id = id;
+        return this;
+    }
 }

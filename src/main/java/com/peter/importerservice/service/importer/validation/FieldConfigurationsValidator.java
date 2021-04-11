@@ -36,7 +36,7 @@ public class FieldConfigurationsValidator
     // check field configuration according to the import type
     var type = importTypeResolver.getImportTypeFromUrl();
 
-    if (!type.isPresent()) { // cannot append because of spring pathVariable validation
+    if (type.isEmpty()) { // cannot append because of spring pathVariable validation
       context
           .buildConstraintViolationWithTemplate(
               ValidationErrorCode.Import.CONFIGURATION_ERROR.name())
@@ -110,7 +110,7 @@ public class FieldConfigurationsValidator
     requiredFields.removeIf(
         requiredField ->
             configuration.stream()
-                .map(field -> field.getFieldName())
+                .map(FieldConfiguration::getFieldName)
                 .anyMatch(field -> field.equals(requiredField)));
 
     if (!requiredFields.isEmpty()) {

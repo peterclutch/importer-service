@@ -20,6 +20,11 @@ public class FactoryService {
     private final BrandRepository brandRepository;
     private final FactoryRepository factoryRepository;
 
+    @Transactional(readOnly = true)
+    public Factory getOne(final Long id) {
+        return factoryRepository.getOne(id);
+    }
+
     public FactoryBO create(final FactoryBO factoryBO, Boolean dryRun) {
         if (!dryRun) {
 //            BusinessEvent.builder()
@@ -60,5 +65,11 @@ public class FactoryService {
         final FactoryBO result = factoryMapper.toBO(factorySaved);
 //        result.setRegistrationNumber(factoryBO.getRegistrationNumber());
         return result;
+    }
+
+    @Transactional(readOnly = true)
+    public Factory findByName(String name) {
+        var brandId = SecurityUtils.getCurrentUserBrandWhenAuthorized();
+        return factoryRepository.findOneByNameAndBrandId(name, brandId);
     }
 }

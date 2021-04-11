@@ -1,0 +1,8 @@
+PO reference;Factory name;Factory ID;Product;Quantity;Unit;Shipment date;order date
+WORKING PO;Peter Factory;;Apron;1234;pieces;2020-03-01;2020-02-01
+WORKING PO;Peter Factory;;Coffee Mug;1000;pieces;2020-03-01;2020-02-01
+WORKING PO;Peter Factory;;Short Shorts;2000;sets;2020-03-01;2020-02-01
+WORKING PO;Peter Factory;;Tank Tops;6000;pieces;2020-03-01;2020-02-01
+WRONG PO;Peter Factory;;WRONG PRODUCT;5678;sets;2020-02-01;2020-03-01
+WRONG PO;WRONG FACTORY;;Coffee Mug;5678;;2020-02-01;2020-03-02
+WRONG PO;WRONG FACTORY;;WRONG PRODUCT;5678;;02-01-2020;03-02-2020

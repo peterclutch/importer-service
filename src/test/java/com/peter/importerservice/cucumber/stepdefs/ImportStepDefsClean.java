@@ -4,7 +4,9 @@ import com.peter.importerservice.cucumber.context.ScenarioContextKeys;
 import com.peter.importerservice.cucumber.context.World;
 import com.peter.importerservice.cucumber.web.rest.QimaTestUtil;
 import com.peter.importerservice.repository.FactoryRepository;
+import com.peter.importerservice.repository.PurchaseOrderRepository;
 import com.peter.importerservice.service.importer.ImportType;
+import com.peter.importerservice.service.importer.configuration.purchase_order.ImportPurchaseOrderFields;
 import com.peter.importerservice.service.importer.dto.FieldConfiguration;
 import com.peter.importerservice.service.importer.dto.ImportConfiguration;
 import com.peter.importerservice.service.importer.dto.ImportReportDTO;
@@ -31,10 +33,16 @@ public class ImportStepDefsClean implements En {
 
     private final World world;
     private final FactoryRepository factoryRepository;
+    private final PurchaseOrderRepository purchaseOrderRepository;
 
-    public ImportStepDefsClean(World world, FactoryRepository factoryRepository) {
+    public ImportStepDefsClean(
+            World world,
+            FactoryRepository factoryRepository,
+            PurchaseOrderRepository purchaseOrderRepository
+    ) {
         this.world = world;
         this.factoryRepository = factoryRepository;
+        this.purchaseOrderRepository = purchaseOrderRepository;
 
         Then(
                 "I get {ImportType} configuration",
@@ -149,43 +157,13 @@ public class ImportStepDefsClean implements En {
                 "The {ImportType} in line {string} is not saved",
                 (ImportType importType, String lineNumber) -> {
                     var importTypeName = importType.name();
-                    if (importTypeName.equalsIgnoreCase("product")) {
-                        // TODO
-//            var identifier = getIdentifierValue(importTypeName, Integer.valueOf(lineNumber));
-//
-//            var found =
-//                productRepository.existsByBrandIdAndIdentifierValue(
-//                    QimaTestUtil.TEST_BRAND_ID, identifier);
-//            assertThat(found).isFalse();
-
-                    } else if (importTypeName.equalsIgnoreCase("user")) {
-                        // TODO
-//            var email = getUserEmail(importTypeName, Integer.valueOf(lineNumber));
-//            var found = userRepository.findOneByContactEmailIgnoreCase(email).isPresent();
-//            assertThat(found).isFalse();
-                    } else if (importTypeName.equalsIgnoreCase("purchase_order")) {
-                        // TODO
-//            var purchaseOrder =
-//                getPurchaseOrderReference(importTypeName, Integer.valueOf(lineNumber));
-//            var found =
-//                purchaseOrderRepository.existsByReferenceAndBrandId(
-//                    purchaseOrder, QimaTestUtil.TEST_BRAND_ID);
-//            assertThat(found).isFalse();
-                    } else if (importTypeName.equalsIgnoreCase("defect_checklist")) {
-                        // TODO
-//            var defectChecklist =
-//                getDefectsChecklistName(importTypeName, Integer.valueOf(lineNumber));
-//            var found =
-//                defectsChecklistRepository.existsByNameAndBrandId(
-//                    defectChecklist, QimaTestUtil.TEST_BRAND_ID);
-//            assertThat(found).isFalse();
-                    } else if (importTypeName.equalsIgnoreCase("test_checklist")) {
-                        // TODO
-//            var testChecklist = getTestsChecklistName(importTypeName, Integer.valueOf(lineNumber));
-//            var found =
-//                testsChecklistRepository.existsByNameAndBrandId(
-//                    testChecklist, QimaTestUtil.TEST_BRAND_ID);
-//            assertThat(found).isFalse();
+                    if (importTypeName.equalsIgnoreCase("purchase_order")) {
+                        var purchaseOrder =
+                                getPurchaseOrderReference(importTypeName, Integer.valueOf(lineNumber));
+                        var found =
+                                purchaseOrderRepository.existsByReferenceAndBrandId(
+                                        purchaseOrder, QimaTestUtil.TEST_BRAND_ID);
+                        assertThat(found).isFalse();
                     } else {
                         throw new IllegalArgumentException();
                     }
@@ -195,25 +173,7 @@ public class ImportStepDefsClean implements En {
                 "The {ImportType} in line {string} is saved",
                 (ImportType importType, String lineNumber) -> {
                     var importTypeName = importType.name();
-                    if (importTypeName.equalsIgnoreCase(ImportType.PRODUCT.name())) {
-                        // TODO
-//            var identifier = getIdentifierValue(importTypeName, Integer.valueOf(lineNumber));
-//            var found =
-//                productRepository.existsByBrandIdAndIdentifierValue(
-//                    QimaTestUtil.TEST_BRAND_ID, identifier);
-//            assertThat(found).isTrue();
-                    } else if (importTypeName.equalsIgnoreCase(ImportType.USER.name())) {
-                        // TODO
-//            var email = getUserEmail(importTypeName, Integer.valueOf(lineNumber));
-//            var found = userRepository.findOneByContactEmailIgnoreCase(email).isPresent();
-//            assertThat(found).isTrue();
-                    } else if (importTypeName.equalsIgnoreCase(ImportType.TEST_CHECKLIST.name())) {
-                        // TODO
-//            var name = getTestsChecklistName(importTypeName, Integer.valueOf(lineNumber));
-//            var found =
-//                testsChecklistRepository.existsByNameAndBrandId(name, QimaTestUtil.TEST_BRAND_ID);
-//            assertThat(found).isTrue();
-                    } else if (importTypeName.equalsIgnoreCase(ImportType.FACTORY.name())) {
+                    if (importTypeName.equalsIgnoreCase(ImportType.FACTORY.name())) {
                         var name = getFactoryName(importTypeName, Integer.valueOf(lineNumber));
                         var found = factoryRepository.existsByNameAndBrandId(name, QimaTestUtil.TEST_BRAND_ID);
                         assertThat(found).isTrue();
@@ -249,17 +209,16 @@ public class ImportStepDefsClean implements En {
                 .orElseThrow();
     }
 
-    // TODO
-//  private String getPurchaseOrderReference(String importType, Integer line) {
-//    var currentLine = getLine(importType, line);
-//    var config = getConfiguration(importType);
-//
-//    return config.getFields().stream()
-//        .filter(f -> f.getFieldName().equalsIgnoreCase(ImportPurchaseOrderFields.REFERENCE.name()))
-//        .map(f -> currentLine.split(";")[f.getPosition() - 1])
-//        .findFirst()
-//        .orElseThrow();
-//  }
+    private String getPurchaseOrderReference(String importType, Integer line) {
+        var currentLine = getLine(importType, line);
+        var config = getConfiguration(importType);
+
+        return config.getFields().stream()
+                .filter(f -> f.getFieldName().equalsIgnoreCase(ImportPurchaseOrderFields.REFERENCE.name()))
+                .map(f -> currentLine.split(";")[f.getPosition() - 1])
+                .findFirst()
+                .orElseThrow();
+    }
 
     // TODO
 //  private String getDefectsChecklistName(String importType, Integer line) {

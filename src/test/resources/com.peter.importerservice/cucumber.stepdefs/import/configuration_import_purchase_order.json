@@ -1,0 +1,33 @@
+{
+  "fields": [
+    {
+      "fieldName": "REFERENCE",
+      "position": 1
+    },
+    {
+      "fieldName": "FACTORY_NAME",
+      "position": 2
+    },
+    {
+      "fieldName": "PRODUCT_IDENTIFIER",
+      "position": 4
+    },
+    {
+      "fieldName": "QUANTITY",
+      "position": 5
+    },
+    {
+      "fieldName": "UNIT",
+      "position": 6
+    },
+    {
+      "fieldName": "SHIPMENT_DATE",
+      "position": 7
+    },
+    {
+      "fieldName": "ORDER_DATE",
+      "position": 8
+    }
+  ],
+  "dryRun": true
+}
