@@ -32,4 +32,10 @@ public class QimaTestUtil {
 
         return mapper;
     }
+
+    public static void resetSecurityContext() {
+    }
+
+    public static void setTestBrandUserSecurityContext() {
+    }
 }

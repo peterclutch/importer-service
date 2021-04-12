@@ -26,6 +26,10 @@ public class PurchaseOrderService {
     private final ProductService productService;
     private final PurchaseOrderProductService purchaseOrderProductService;
 
+    public PurchaseOrder create(final PurchaseOrder purchaseOrder) {
+        return create(purchaseOrder, false);
+    }
+
     public PurchaseOrder create(final PurchaseOrder purchaseOrder, Boolean dryRun) {
         if (!dryRun) {
 //            BusinessEvent.builder()

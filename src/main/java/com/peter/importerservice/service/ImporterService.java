@@ -362,7 +362,7 @@ public class ImporterService {
             property = property.substring(property.indexOf('[') + 1, property.indexOf(']'));
         }
 
-        if (!type.getField(property).isPresent()) {
+        if (type.getField(property).isEmpty()) {
             var opt = type.getPropertyFromCode(constraintViolation, importConfiguration.getFields());
             if (opt.isPresent()) {
                 property = opt.get();

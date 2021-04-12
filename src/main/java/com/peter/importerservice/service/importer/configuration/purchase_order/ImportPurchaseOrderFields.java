@@ -26,7 +26,7 @@ public enum ImportPurchaseOrderFields implements ImportConfigurationFields<Purch
     }
   };
 
-  private static final double validQuantiy = 1D;
+  private static final double validQuantity = 1D;
 
   private final BiConsumer<PurchaseOrderLineImportBO, String> consumer;
 
@@ -58,7 +58,7 @@ public enum ImportPurchaseOrderFields implements ImportConfigurationFields<Purch
       } catch (Exception e) {
         bo.getProduct()
             .setQuantity(
-                validQuantiy); // Set random valid value to avoid a empty exception for javax
+                    validQuantity); // Set random valid value to avoid a empty exception for javax
         // validation
         bo.getProduct().setRawQuantity(value);
       }
