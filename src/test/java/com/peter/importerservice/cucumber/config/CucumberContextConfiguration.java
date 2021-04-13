@@ -1,6 +1,5 @@
 package com.peter.importerservice.cucumber.config;
 
-import com.peter.importerservice.ImporterServiceApplication;
 import com.peter.importerservice.cucumber.context.World;
 import cucumber.api.java.Before;
 import lombok.extern.slf4j.Slf4j;
@@ -13,14 +12,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
 @ComponentScan(basePackages = {"com.peter.importerservice.cucumber"})
-//@EnableJpaRepositories(value = {"com.peter.importerservice.cucumber.repository"})
 @Slf4j
 public class CucumberContextConfiguration {
 
@@ -42,22 +39,5 @@ public class CucumberContextConfiguration {
       return new AllEncompassingFormHttpMessageConverter();
     }
   }
-
-//  @TestConfiguration
-//  static class LiquibaseConfiguration {
-//
-//    @Primary
-//    @DependsOn("dataSourceCustom")
-//    @Bean(name = "liquibaseBean")
-//    public Liquibase liquibase(DataSource dataSource) throws SQLException, LiquibaseException {
-//      Database database =
-//          DatabaseFactory.getInstance()
-//              .findCorrectDatabaseImplementation(new JdbcConnection(dataSource.getConnection()));
-//      Liquibase liquibase =
-//          new Liquibase("config/liquibase/master.xml", new ClassLoaderResourceAccessor(), database);
-//      liquibase.update("test");
-//      return liquibase;
-//    }
-//  }
 
 }
