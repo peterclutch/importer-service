@@ -25,13 +25,6 @@ Feature: Import feature - clean
     And The FACTORY in line "2" is saved
 
   Scenario: As a brand I want to import purchase order
-#    Given an address is filled - clean
-#    When I create a factory named "nakamura" - clean
-#    Then the factory is created - clean
-#    And I create a product UNCATEGORIZED named "djadja" referenced "djadja" - clean
-#    And I create a product UNCATEGORIZED named "les copines" referenced "les copines" - clean
-#    And I create a product UNCATEGORIZED named "Pookie" referenced "Pookie" - clean
-#    And I create a product UNCATEGORIZED named "La Dot" referenced "La Dot" - clean
     Then I get PURCHASE_ORDER configuration
     And The PURCHASE_ORDER configuration is correct
     Then I try a PURCHASE_ORDER import with dry run option "true"
